@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>ISMAREED</title>
+</head>
+<body>
+    <a>Welcome to BYU's Information Systems Dating Site</a>
+    <br><br>
+    <label for="phrase">What is the love phrase: </label>
+    <input type="text" id="phrase">
+    <br><br>
+    <label for="firstPerson">Enter the first person's first and last name: </label>
+    <input type="text" id="firstPerson">
+    <br><br>
+    <label for="secondPerson">Enter the second person's first and last name: </label>
+    <input type="text" id="secondPerson">
+    <br><br>
+    <input type="checkbox" id="check1">
+    <label for="check1">We will communicate often</label>
+    <br><br>
+    <input type="checkbox" id="check2">
+    <label for="check2">We will not be selfish</label>
+    <br><br>
+    <input type="checkbox" id="check3">
+    <label for="check3">We will serve each other</label>
+    <br><br>
+    <input type="checkbox" id="check4">
+    <label for="check4">My spouse will be my best friend</label>
+    <br><br>
+    <input type="checkbox" id="check5">
+    <label for="check5">We will remember God</label>
+    <br><br>
+    <input type="button" onclick="HeartCalc()" value="Click me">
+    <input type="button" onclick="eraseInput()" value="Reset">
+
+    <script>
+    /*You will need to have a variable called iFactor and set it to the value of 1. 
+    This variable will be the number you use in the following expression:
+    iPower = Math.ceil(((iLoveCount / sLovePhrase.length) * 22) * iFactor);
+    Where iLoveCount is the number of times the characters were present in the love phrase, 
+    sLovePhrase was the phrase entered in the text box, and iFactor is the multplying number. 
+    You start with iFactor = 1 but then for each checkbox checked you add .25 to the iFactor. 
+    For the last checkbox "We will remember God" you will add .5 if checked.
+    When you click on the Click Me button you will perform the calculations. 
+    I want a function that performs the parsing of the name(s) and the love phrase. 
+    Make sure that you check for upper case or lower case when comparing. IOW, 
+    choose either upper or lower and force all characters to that value.
+    In the LoadingBar.js website take a look at:
+    var bar1 = new ldBar("#myItem1");
+    var bar2 = document.getElementById('myItem1').ldBar;
+    bar1.set(60);
+    This will draw the bars in the heart. This should be in a function called drawBar which receives a numeric value and is used when setting the display to be drawn:
+    bar1.set(some value);
+    Then the heart should be filled in based upon the number you calculated and drawn. 
+    Depending on the value, you will dynamically display a message under the heart. 
+    # >= 100 ... Perfect Marriage
+    # >= 85 ... Get Married!
+    # >= 70 ... It might work
+    otherwise ... Keep looking!*/
+
+        //Declare variables
+        var iFactor = 1;
+        var iPower;
+        var loveCount;
+        var lovePhrase;
+        var bar1;
+        var bar2;
+        var myItem1;
+        var communicateOften;
+        var notSelfish;
+        var serveEachOther;
+        var bestFriendsForever;
+        var rememberGod;
+
+        //Function to calculate the amount of love
+        function HeartCalc() {
+            
+            //Use DOM to get checkboxes
+            var communicateOften = document.getElementById("check1")
+            var notSelfish = document.getElementById("check2")
+            var serveEachOther = document.getElementById("check 3")
+            var bestFriendsForever = document.getElementById("check 4")
+            var rememberGod = document.getElementById("check 5")
+
+            //Equation given in the HW prompt
+            iPower = Math.ceil(((loveCount / lovePhrase.length) * 22) * iFactor);
+
+            //If checkbox is checked, do the calculation
+            if (communicateOften.checked == true) {
+                iPower = iPower + 0.25;
+                break;
+            }
+            if (notSelfish.checked == true) {
+                iPower = iPower + 0.25;
+                break;
+            }
+            if (serveEachOther.checked == true) {
+                iPower = iPower + 0.25;
+                break;
+            }
+            if (bestFriendsForever.checked == true) {
+                iPower = iPower + 0.25;
+                break;
+            }
+            if (rememberGod.checked == true) {
+                iPower = iPower + 0.5;
+                break;
+            }
+            alert(iPower)
+        }
+    </script>
+
+    <div class="ldBar label-center"
+    data-fill="red"
+    data-value = "90"
+    data-type="fill"
+    data-path="M90.5,23.2c0-12.5-10.2-22.7-22.7-22.7
+    c-13.6,0-20.9,8.6-22.3,13.8C44.3,8.9,
+    35.1,0.5,23.2,0.5C10.7,0.5,0.5,10.7,
+    0.5,23.2c0,22.2,36.5,45.3,45,55.9
+    C53.5,67.3,90.5,46.3,90.5,23.2z"
+    >
+    </div>
+    
+    <script>
+        
+        function eraseInput() {
+            document.getElementById("phrase").value = "";
+            document.getElementById("firstPerson").value = "";
+            document.getElementById("secondPerson").value = "";
+            document.getElementById("check1").checked = false;
+            document.getElementById("check2").checked = false;
+            document.getElementById("check3").checked = false;
+            document.getElementById("check4").checked = false;
+            document.getElementById("check5").checked = false;
+            document.getElementById("phrase").focus();
+            //BE SURE TO ADD REMOVING THE HEART TO THIS FUNCTION
+           
+        }
+    </script>
+</body>
+</html>

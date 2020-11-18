@@ -7,6 +7,7 @@
     <title>ISMAREED</title>
 </head>
 <body>
+
     <a>Welcome to BYU's Information Systems Dating Site</a>
     <br><br>
     <label for="phrase">What is the love phrase: </label>
@@ -36,6 +37,69 @@
     <input type="button" onclick="HeartCalc()" value="Click me">
     <input type="button" onclick="eraseInput()" value="Reset">
 
+
+    <input type="button" onclick="calculateLove()" value="Click me">
+    <input type="button" onclick="eraseInput()" value="Reset">
+    <div class="LoveHeart">
+        <svg width="200" height="200">
+            
+            <defs id="defs8">
+              <path
+                 d="M 0,0 A 50,50 90 0 1 100,0 C 100,50 10,80 0,140"
+                 id="arc" />
+              <g id="heartgroup">
+                <use
+                   height="100%"
+                   width="100%"
+                   y="0"
+                   x="0"
+                   id="use3"
+                   xlink:href="#arc" />
+                <use
+                   height="100%"
+                   width="100%"
+                   y="0"
+                   x="0"
+                   id="use5"
+                   transform="scale(-1,1)"
+                   xlink:href="#arc" />
+              </g>
+            </defs>
+            <g
+               transform="translate(100,50)"
+               id="redheart">
+              <use
+                 height="100%"
+                 width="100%"
+                 y="0"
+                 x="0"
+                 style="fill:#ff0000;stroke:none"
+                 id="use10"
+                 xlink:href="#heartgroup" />
+            </g>
+            <g font-size="30" fill="black" text-anchor="middle">
+                <text id ="percent" x="100" y="90" fill="black"></text>
+            </g>
+          </svg> 
+          <p id="output" style ="text-align:center;"></p> 
+    </div>
+    
+    <style>
+        div.LoveHeart
+        {
+        position: absolute;
+        right: 5%;
+        bottom: 10%;
+        }
+        div.LoveHeart p
+        {
+        margin: 0;
+        background: white;
+        color: red;
+        font-weight: bold;
+        font-size: 150%;
+        }
+    </style>
     <script>
     /*You will need to have a variable called iFactor and set it to the value of 1. 
     This variable will be the number you use in the following expression:
@@ -111,6 +175,54 @@
             }
             alert(iPower)
         }
+
+                //Get the inputs from the HTML and assign them variables. 
+                var firstName = document.getElementById("firstPerson").value;
+        var secondName = document.getElementById("secondPerson").value;
+        var lovePhrase = document.getElementById("phrase").value;
+
+        //This just takes the variables and removes spaces and makes them uppercase
+        var noSpaces = firstName.split(" ").join("");
+        firstName = noSpaces.toUpperCase();
+
+        noSpaces = secondName.split(" ").join("");
+        secondName = noSpaces.toUpperCase();
+
+        noSpaces = lovePhrase.split(" ").join("");
+        lovePhrase = noSpaces.toUpperCase();
+
+        //This compares the letters in the first person's name to the love phrase
+        //and counts the number of matches. 
+        var loveCount = 0;    
+        for (i = 0; i <= lovePhrase.length -1; i++)
+            {
+                for (l = 0; l <= firstName.length -1; l++)
+                {   
+                    if (firstName.substr(l,1) == lovePhrase.substr(i,1))
+                    {
+
+                        loveCount++; 
+
+                    }
+                }
+            }
+        //This compares the letters in the second person's name to the love phrase
+        //and counts the number of matches. 
+        for (i = 0; i <= lovePhrase.length -1; i++)
+        {
+            for (l = 0; l <= secondName.length -1; l++)
+            {   
+                if (secondName.substr(l,1) == lovePhrase.substr(i,1))
+                {
+
+                        loveCount++; 
+
+                }
+            }
+        }
+
+        document.getElementById("percent").innerHTML = "100%";
+        document.getElementById("output").innerHTML = "Get Married!";
     </script>
 
     <div class="ldBar label-center"

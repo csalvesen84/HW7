@@ -97,6 +97,9 @@
     # >= 70 ... It might work
     otherwise ... Keep looking!*/
 
+        //create object heart
+        var bar1 = new ldBar("#myItem1");
+        var bar2 = document.getElementById('myItem1').ldBar; 
         
         //function to hide heart when page is loaded
         function hideHeart() {
@@ -111,9 +114,7 @@
             
             //Declare variables
             var iFactor = 1;
-            var iPower; 
-            var bar1 = new ldBar("#myItem1");
-            var bar2 = document.getElementById('myItem1').ldBar;          
+            var iPower;          
 
             //If checkbox is checked, add to iFactor
             if (document.getElementById("check1").checked == true) {
@@ -183,19 +184,19 @@
             alert(iPower);
 
             if (iPower >= 100) {
-                bar1.set(100);
+                bar1.set(100, false);
                 document.getElementById("output").innerHTML = "Perfect Marriage";
             }
             else if (iPower >= 85) {
-                bar1.set(iPower);
+                bar1.set(iPower, false);
                 document.getElementById("output").innerHTML = "Get Married!";
             }
             else if (iPower >= 70) {
-                bar1.set(iPower);
+                bar1.set(iPower, false);
                 document.getElementById("output").innerHTML = "It might work";
             }
             else {
-                bar1.set(iPower);
+                bar1.set(iPower, false);
                 document.getElementById("output").innerHTML = "Keep Looking";
             }
         }

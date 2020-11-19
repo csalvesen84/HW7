@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>ISMAREED</title>
+</head>
+<body onload="hideHeart()">
+
+    <a>Welcome to BYU's Information Systems Dating Site</a>
+    <br><br>
+    <label for="phrase">What is the love phrase: </label>
+    <input type="text" id="phrase">
+    <br><br>
+    <label for="firstPerson">Enter the first person's first and last name: </label>
+    <input type="text" id="firstPerson">
+    <br><br>
+    <label for="secondPerson">Enter the second person's first and last name: </label>
+    <input type="text" id="secondPerson">
+    <br><br>
+    <input type="checkbox" id="check1">
+    <label for="check1">We will communicate often</label>
+    <br><br>
+    <input type="checkbox" id="check2">
+    <label for="check2">We will not be selfish</label>
+    <br><br>
+    <input type="checkbox" id="check3">
+    <label for="check3">We will serve each other</label>
+    <br><br>
+    <input type="checkbox" id="check4">
+    <label for="check4">My spouse will be my best friend</label>
+    <br><br>
+    <input type="checkbox" id="check5">
+    <label for="check5">We will remember God</label>
+    <br><br>
+    <input type="button" onclick="HeartCalc()" value="Click me">
+    <input type="button" onclick="eraseInput()" value="Reset">
+
+    <link rel="stylesheet" type="text/css" href="loading-bar.css"/>
+    <script type="text/javascript" src="loading-bar.js"></script>
+
+    <div class="LoveHeart">
+        <div class="ldBar label-center" id="heart"
+        data-fill="red"
+        data-value ="33"
+        data-type="fill"
+        data-min="0"
+        data-max="100"
+        data-path="M90.5,23.2c0-12.5-10.2-22.7-22.7-22.7
+        c-13.6,0-20.9,8.6-22.3,13.8C44.3,8.9,
+        35.1,0.5,23.2,0.5C10.7,0.5,0.5,10.7,
+        0.5,23.2c0,22.2,36.5,45.3,45,55.9
+        C53.5,67.3,90.5,46.3,90.5,23.2z"
+        >
+        </div>
+        <br>
+        <p id="output" style ="text-align:center;"></p>
+    </div>
+    
+    <style>
+        div.LoveHeart
+        {
+        position: absolute;
+        right: 5%;
+        bottom: 10%;
+        }
+        div.LoveHeart p
+        {
+        margin: 0;
+        background: white;
+        color: red;
+        font-weight: bold;
+        font-size: 100%;
+        }
+    </style>
+    <script>
+    /*You will need to have a variable called iFactor and set it to the value of 1. 
+    This variable will be the number you use in the following expression:
+    iPower = Math.ceil(((iLoveCount / sLovePhrase.length) * 22) * iFactor);
+    Where iLoveCount is the number of times the characters were present in the love phrase, 
+    sLovePhrase was the phrase entered in the text box, and iFactor is the multplying number. 
+    You start with iFactor = 1 but then for each checkbox checked you add .25 to the iFactor. 
+    For the last checkbox "We will remember God" you will add .5 if checked.
+    When you click on the Click Me button you will perform the calculations. 
+    I want a function that performs the parsing of the name(s) and the love phrase. 
+    Make sure that you check for upper case or lower case when comparing. IOW, 
+    choose either upper or lower and force all characters to that value.
+    In the LoadingBar.js website take a look at:
+    var bar1 = new ldBar("#myItem1");
+    var bar2 = document.getElementById('myItem1').ldBar;
+    bar1.set(60);
+    This will draw the bars in the heart. This should be in a function called drawBar which receives a numeric value and is used when setting the display to be drawn:
+    bar1.set(some value);
+    Then the heart should be filled in based upon the number you calculated and drawn. 
+    Depending on the value, you will dynamically display a message under the heart. 
+    # >= 100 ... Perfect Marriage
+    # >= 85 ... Get Married!
+    # >= 70 ... It might work
+    otherwise ... Keep looking!*/
+
+        
+        //function to hide heart when page is loaded
+        function hideHeart() {
+        document.getElementById("heart").style.visibility = "hidden";
+        }
+        
+        //Function to calculate the amount of love
+        function HeartCalc() {
+        
+        //show heart
+        document.getElementById("heart").style.visibility = "visible";    
+            
+            //Declare variables
+            var iFactor = 1;
+            var iPower; 
+            var heartPercent = document.getElementById("heart").setAttribute('data-value', iPower);           
+
+            //If checkbox is checked, add to iFactor
+            if (document.getElementById("check1").checked == true) {
+                iFactor = iFactor + 0.25;
+            }
+            if (document.getElementById("check2").checked == true) {
+                iFactor = iFactor + 0.25;
+            }
+            if (document.getElementById("check3").checked == true) {
+                iFactor = iFactor + 0.25;
+            }
+            if (document.getElementById("check4").checked == true) {
+                iFactor = iFactor + 0.25;
+            }
+            if (document.getElementById("check5").checked == true) {
+                iFactor = iFactor + 0.5;
+            }
+
+        //Get the inputs from the HTML and assign them variables. 
+        var firstName = document.getElementById("firstPerson").value;
+        var secondName = document.getElementById("secondPerson").value;
+        var lovePhrase = document.getElementById("phrase").value;
+
+        //This just takes the variables and removes spaces and makes them uppercase
+        var noSpaces = firstName.split(" ").join("");
+        firstName = noSpaces.toUpperCase();
+
+        noSpaces = secondName.split(" ").join("");
+        secondName = noSpaces.toUpperCase();
+
+        noSpaces = lovePhrase.split(" ").join("");
+        lovePhrase = noSpaces.toUpperCase();
+
+        //This compares the letters in the first person's name to the love phrase
+        //and counts the number of matches. 
+        var loveCount = 0;    
+        for (i = 0; i <= lovePhrase.length -1; i++)
+            {
+                for (l = 0; l <= firstName.length -1; l++)
+                {   
+                    if (firstName.substr(l,1) == lovePhrase.substr(i,1))
+                    {
+
+                        loveCount++; 
+
+                    }
+                }
+            }
+        //This compares the letters in the second person's name to the love phrase
+        //and counts the number of matches. 
+        for (i = 0; i <= lovePhrase.length -1; i++)
+        {
+            for (l = 0; l <= secondName.length -1; l++)
+            {   
+                if (secondName.substr(l,1) == lovePhrase.substr(i,1))
+                {
+
+                        loveCount++; 
+
+                }
+            }
+        }
+
+
+            //Equation given in the HW prompt
+            iPower = Math.ceil(((loveCount / lovePhrase.length) * 22) * iFactor);
+            alert(iPower);
+
+            if (iPower >= 100) {
+                heartPercent = 100;
+                document.getElementById("output").innerHTML = "Perfect Marriage";
+            }
+            else if (iPower >= 85) {
+                heartPercent = iPower;
+                document.getElementById("output").innerHTML = "Get Married!";
+            }
+            else if (iPower >= 70) {
+                heartPercent = Power;
+                document.getElementById("output").innerHTML = "It might work";
+            }
+            else {
+                heartPercent = iPower;
+                document.getElementById("output").innerHTML = "Keep Looking";
+            }
+        }
+
+                
+        function eraseInput() {
+            document.getElementById("phrase").value = "";
+            document.getElementById("firstPerson").value = "";
+            document.getElementById("secondPerson").value = "";
+            document.getElementById("check1").checked = false;
+            document.getElementById("check2").checked = false;
+            document.getElementById("check3").checked = false;
+            document.getElementById("check4").checked = false;
+            document.getElementById("check5").checked = false;
+            document.getElementById("phrase").focus();
+            //BE SURE TO ADD REMOVING THE HEART TO THIS FUNCTION
+           
+        }
+    </script>
+    
+    <script>
+        
+        function eraseInput() {
+            document.getElementById("phrase").value = "";
+            document.getElementById("firstPerson").value = "";
+            document.getElementById("secondPerson").value = "";
+            document.getElementById("check1").checked = false;
+            document.getElementById("check2").checked = false;
+            document.getElementById("check3").checked = false;
+            document.getElementById("check4").checked = false;
+            document.getElementById("check5").checked = false;
+            document.getElementById("phrase").focus();
+            //BE SURE TO ADD REMOVING THE HEART TO THIS FUNCTION
+           
+        }
+    </script>
+</body>
+</html>

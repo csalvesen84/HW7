@@ -6,7 +6,7 @@
     , initial-scale=1.0">
     <title>ISMAREED</title>
 </head>
-<body>
+<body onload="hideHeart()">
 
     <a>Welcome to BYU's Information Systems Dating Site</a>
     <br><br>
@@ -37,48 +37,23 @@
     <input type="button" onclick="HeartCalc()" value="Click me">
     <input type="button" onclick="eraseInput()" value="Reset">
 
+    <link rel="stylesheet" type="text/css" href="loading-bar.css"/>
+    <script type="text/javascript" src="loading-bar.js"></script>
+
     <div class="LoveHeart">
-        <svg width="200" height="200">
-            
-            <defs id="defs8">
-              <path
-                 d="M 0,0 A 50,50 90 0 1 100,0 C 100,50 10,80 0,140"
-                 id="arc" />
-              <g id="heartgroup">
-                <use
-                   height="100%"
-                   width="100%"
-                   y="0"
-                   x="0"
-                   id="use3"
-                   xlink:href="#arc" />
-                <use
-                   height="100%"
-                   width="100%"
-                   y="0"
-                   x="0"
-                   id="use5"
-                   transform="scale(-1,1)"
-                   xlink:href="#arc" />
-              </g>
-            </defs>
-            <g
-               transform="translate(100,50)"
-               id="redheart">
-              <use
-                 height="100%"
-                 width="100%"
-                 y="0"
-                 x="0"
-                 style="fill:#ff0000;stroke:none"
-                 id="use10"
-                 xlink:href="#heartgroup" />
-            </g>
-            <g font-size="30" fill="black" text-anchor="middle">
-                <text id ="percent" x="100" y="90" fill="black"></text>
-            </g>
-          </svg> 
-          <p id="output" style ="text-align:center;"></p> 
+        <div class="ldBar label-center" id="myItem1"
+        data-fill="red"
+        data-value ="0"
+        data-type="fill"
+        data-path="M90.5,23.2c0-12.5-10.2-22.7-22.7-22.7
+        c-13.6,0-20.9,8.6-22.3,13.8C44.3,8.9,
+        35.1,0.5,23.2,0.5C10.7,0.5,0.5,10.7,
+        0.5,23.2c0,22.2,36.5,45.3,45,55.9
+        C53.5,67.3,90.5,46.3,90.5,23.2z"
+        >
+        </div>
+        <br>
+        <p id="output" style ="text-align:center;"></p>
     </div>
     
     <style>
@@ -94,7 +69,7 @@
         background: white;
         color: red;
         font-weight: bold;
-        font-size: 150%;
+        font-size: 100%;
         }
     </style>
     <script>
@@ -122,17 +97,23 @@
     # >= 70 ... It might work
     otherwise ... Keep looking!*/
 
-        //Declare variables
-
+        
+        //function to hide heart when page is loaded
+        function hideHeart() {
+        document.getElementById("myItem1").style.visibility = "hidden";
+        }
+        
         //Function to calculate the amount of love
         function HeartCalc() {
-            var iFactor = 1;
-            var iPower;
-            var bar1;
-            var bar2;
-            var myItem1;
-
+        
+        //show heart
+        document.getElementById("myItem1").style.visibility = "visible";    
             
+            //Declare variables
+            var iFactor = 1;
+            var iPower; 
+            var bar1 = new ldBar("#myItem1");
+            var bar2 = document.getElementById('myItem1').ldBar;          
 
             //If checkbox is checked, add to iFactor
             if (document.getElementById("check1").checked == true) {
@@ -202,19 +183,19 @@
             alert(iPower);
 
             if (iPower >= 100) {
-                document.getElementById("percent").innerHTML = "100%";
+                bar1.set(100);
                 document.getElementById("output").innerHTML = "Perfect Marriage";
             }
             else if (iPower >= 85) {
-                document.getElementById("percent").innerHTML = iPower + "%";
+                bar1.set(iPower);
                 document.getElementById("output").innerHTML = "Get Married!";
             }
             else if (iPower >= 70) {
-                document.getElementById("percent").innerHTML = iPower + "%";
+                bar1.set(iPower);
                 document.getElementById("output").innerHTML = "It might work";
             }
             else {
-                document.getElementById("percent").innerHTML = iPower + "%";
+                bar1.set(iPower);
                 document.getElementById("output").innerHTML = "Keep Looking";
             }
         }
@@ -229,38 +210,9 @@
             document.getElementById("check3").checked = false;
             document.getElementById("check4").checked = false;
             document.getElementById("check5").checked = false;
+            bar1.set(0);        
+            document.getElementById("output").innerHTML = "";
             document.getElementById("phrase").focus();
-            //BE SURE TO ADD REMOVING THE HEART TO THIS FUNCTION
-           
-        }
-    </script>
-
-    <div class="ldBar label-center"
-    data-fill="red"
-    data-value = "90"
-    data-type="fill"
-    data-path="M90.5,23.2c0-12.5-10.2-22.7-22.7-22.7
-    c-13.6,0-20.9,8.6-22.3,13.8C44.3,8.9,
-    35.1,0.5,23.2,0.5C10.7,0.5,0.5,10.7,
-    0.5,23.2c0,22.2,36.5,45.3,45,55.9
-    C53.5,67.3,90.5,46.3,90.5,23.2z"
-    >
-    </div>
-    
-    <script>
-        
-        function eraseInput() {
-            document.getElementById("phrase").value = "";
-            document.getElementById("firstPerson").value = "";
-            document.getElementById("secondPerson").value = "";
-            document.getElementById("check1").checked = false;
-            document.getElementById("check2").checked = false;
-            document.getElementById("check3").checked = false;
-            document.getElementById("check4").checked = false;
-            document.getElementById("check5").checked = false;
-            document.getElementById("phrase").focus();
-            //BE SURE TO ADD REMOVING THE HEART TO THIS FUNCTION
-           
         }
     </script>
 </body>
